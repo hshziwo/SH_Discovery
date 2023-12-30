@@ -2,7 +2,7 @@ from flask_restful import Api, Resource, reqparse
 import requests
 import config
 import json
-from konlpy.tag import Okt
+from analysis.extract import get_graph_data
 
 class HelloApiHandler(Resource):
   # def get(self):
@@ -15,12 +15,12 @@ class HelloApiHandler(Resource):
     with open('testdata.json') as f:
       json_object = json.load(f)
 
-    okt = Okt()
+    descriptions = map(lambda x: x['description'], json_object['items'])
 
     return {
       'resultStatus': 'SUCCESS',
       'message': "Hello Api Handler",
-      'test': okt.nouns(json_object['items'][0]['description'])
+      'test': get_graph_data(descriptions)
       }
 
   # def get(self):
