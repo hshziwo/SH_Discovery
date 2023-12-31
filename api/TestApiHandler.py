@@ -4,11 +4,11 @@ import config
 import json
 from analysis.extract import get_graph_data
 
-class HelloApiHandler(Resource):
+class TestApiHandler(Resource):
   # def get(self):
   #   return {
   #     'resultStatus': 'SUCCESS',
-  #     'message': "Hello Api Handler"
+  #     'message': "Test Api Handler"
   #     }
 
   def get(self):
@@ -19,7 +19,7 @@ class HelloApiHandler(Resource):
 
     return {
       'resultStatus': 'SUCCESS',
-      'message': "Hello Api Handler",
+      'message': "Test Api Handler",
       'test': get_graph_data(descriptions)
       }
 
@@ -48,7 +48,7 @@ class HelloApiHandler(Resource):
 
   #   return {
   #     'resultStatus': 'SUCCESS',
-  #     'message': "Hello Api Handler",
+  #     'message': "Test Api Handler",
   #     'items' : items
   #     }
 

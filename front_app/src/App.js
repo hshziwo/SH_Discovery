@@ -6,7 +6,7 @@ function App() {
   const [getMessage, setGetMessage] = useState({})
 
   useEffect(()=>{
-    fetch(`${process.env.REACT_APP_API_ROOT}/flask/hello`)
+    fetch(`${process.env.REACT_APP_API_ROOT}/flask/test`)
     .then(res => {
       return res.json();
     })
