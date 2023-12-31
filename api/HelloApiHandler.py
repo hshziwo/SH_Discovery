@@ -1,4 +1,4 @@
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Resource, reqparse
 import requests
 import config
 import json
