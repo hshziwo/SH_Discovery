@@ -134,7 +134,7 @@ const Sidebar = () => {
 
                 {SidebarData.map((item, index) => {
                     return (
-                        <MenuItems>
+                        <MenuItems key={item.title}>
                             <MenuItemLinks to={item.path}>
                                 <MenuIcon>{item.icon}</MenuIcon>
                                 {item.title}
