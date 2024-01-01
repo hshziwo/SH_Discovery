@@ -10,12 +10,12 @@ export const SidebarData = [
     },
     {
         title: 'Description',
-        path: '/',
+        path: '/description',
         icon: <MdOutlineDescription />,
     },
     {
         title: 'Analytics',
-        path: '/',
+        path: '/analytics',
         icon: <IoBarChartOutline />,
     },
 ];
