@@ -2,13 +2,6 @@ import styled from 'styled-components';
 import { FcComboChart } from 'react-icons/fc';
 
 const Wrapper = styled.div`
-    /* display: flex;
-    justify-content: start;
-    align-items: center;
-    height: 3.5rem;
-    font-size: 1.5rem;
-    margin-left: 2rem; */
-
     display: flex;
     height: 4rem;
     align-items: center;

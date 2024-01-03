@@ -1,13 +1,23 @@
 import styled from 'styled-components';
 import RightPage from './RightPage';
-import Header from './Header';
-import Contents from './Contents';
+import Header from '../components/Header';
+import AnalyticsMenuList from '../components/AnalyticsMenuList';
+import { Outlet } from 'react-router-dom';
+
+const Contents = styled.div`
+    display: flex;
+    height: 64vh;
+    padding: 1rem;
+`;
 
 const Analytics = () => {
     return (
         <RightPage>
             <Header>Analytics</Header>
-            <Contents>Analytics</Contents>
+            <AnalyticsMenuList />
+            <Contents>
+                <Outlet />
+            </Contents>
         </RightPage>
     );
 };

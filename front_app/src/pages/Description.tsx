@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import RightPage from './RightPage';
-import Header from './Header';
-import Contents from './Contents';
+import Header from '../components/Header';
+
+const Contents = styled.div`
+    display: flex;
+    height: 80vh;
+    padding: 2rem;
+`;
 
 const Description = () => {
     return (

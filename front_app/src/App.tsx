@@ -7,6 +7,8 @@ import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Description from './pages/Description';
 import Analytics from './pages/Analytics';
+import RelatedWordNetwork from './pages/RelatedWordNetwork';
+import WordCloud from './pages/WordCloud';
 
 const Main = styled.div`
     display: flex;
@@ -41,7 +43,10 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/description" element={<Description />} />
-                        <Route path="/analytics" element={<Analytics />} />
+                        <Route path="/analytics" element={<Analytics />}>
+                            <Route index element={<RelatedWordNetwork />} />
+                            <Route path="wordcloud" element={<WordCloud />} />
+                        </Route>
                     </Routes>
                 </Main>
             </BrowserRouter>
