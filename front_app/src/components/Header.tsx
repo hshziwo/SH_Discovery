@@ -7,5 +7,6 @@ const Header = styled.div`
     padding-left: 2rem;
     border-bottom: 1px solid rgb(229 231 235);
     font-size: 1.5rem;
+    align-items: center;
 `;
 export default Header;

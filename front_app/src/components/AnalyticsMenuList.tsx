@@ -26,6 +26,12 @@ const AnalyticsMenuLink = styled(Link)`
     border-radius: 10px;
     background-color: dodgerblue;
     text-decoration: none;
+
+    &:hover {
+        color: rgb(79 70 229);
+        background-color: rgb(240 240 241);
+        border: 1px solid;
+    }
 `;
 
 const AnalyticsMenuList = () => {
