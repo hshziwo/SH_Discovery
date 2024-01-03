@@ -1,59 +1,40 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FcComboChart } from 'react-icons/fc';
+import media from '../styles/media';
 
 import { SidebarData } from './SidebarData';
+import BILogo from './BILogo';
 
 const SidebarMenu = styled.div`
-    /* width: 220px;
-    height: 100vh;
-    background-color: rgb(255 255 255 / 1);
-    position: fixed;
-    top: 0;
-    left: 0; */
-
-    box-sizing: border-box;
-    border-style: solid;
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    z-index: 50;
     display: flex;
-    width: 17rem;
+    width: 23rem;
+    /* width: 30%; */
     flex-direction: column;
     overflow-y: auto;
+    height: 100vh;
+    box-sizing: border-box;
+    border-style: solid;
+    /* position: fixed;
+    top: 0px;
+    bottom: 0px; */
+    z-index: 50;
     border-width: 0;
     border-right-width: 1px;
-    border-color: rgb(229 231 235 / 1);
-    background-color: rgb(255 255 255 / 1);
+    border-color: rgb(229 231 235);
+    background-color: rgb(255 255 255);
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-bottom: 1rem;
-`;
 
-const BILogo = styled.div`
-    /* display: flex;
-    justify-content: start;
-    align-items: center;
-    height: 3.5rem;
-    font-size: 1.5rem;
-    margin-left: 2rem; */
+    /* ${media.tablet`
+        width: 15rem;
+        height: 15rem;
+        font-size: 15rem;
+    `}
 
-    display: flex;
-    height: 4rem;
-    align-items: center;
-    padding: 0.5rem;
-    padding-bottom: 1.5rem;
-
-    column-gap: 0.75rem;
-    font-size: 1.5rem;
-    /* font-weight: 600; */
-    line-height: 1.5rem;
-    text-decoration: none;
-    user-select: none;
-`;
-const BIIcon = styled.div`
-    font-size: 3rem;
+    ${media.phone`
+        width: 12rem;
+    `} */
 `;
 
 const MenuItems = styled.ul`
@@ -83,7 +64,6 @@ const MenuItemLinks = styled(Link)`
     /* display: flex; */
     align-items: center;
     /* padding: 0 2rem; */
-    /* font-size: 20px; */
     text-decoration: none;
     /* color: #ffffff; */
 
@@ -101,7 +81,7 @@ const MenuItemLinks = styled(Link)`
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.5rem;
-    color: rgb(55 65 81 / 1);
+    color: rgb(55 65 81);
 
     &:hover {
         /* background-color: #ffffff; */
@@ -111,26 +91,21 @@ const MenuItemLinks = styled(Link)`
         /* text-align: center; */
         border-radius: 5px;
         /* margin: 0 2rem; */
-        color: rgb(79 70 229 / 1);
-        background-color: rgb(240 240 241 / 1);
+        color: rgb(79 70 229);
+        background-color: rgb(240 240 241);
     }
 `;
 
 const MenuIcon = styled.div`
     font-size: 1.5rem;
-    /* color: rgb(156 163 175 / 1); */
+    /* color: rgb(156 163 175); */
 `;
 
 const Sidebar = () => {
     return (
         <>
             <SidebarMenu>
-                <BILogo>
-                    <BIIcon>
-                        <FcComboChart />
-                    </BIIcon>
-                    SH Discovery
-                </BILogo>
+                <BILogo />
 
                 {SidebarData.map((item, index) => {
                     return (

@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-
-const DescriptionText = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    height: 70vh;
-`;
+import RightPage from './RightPage';
+import Header from './Header';
+import Contents from './Contents';
 
 const Description = () => {
-    return <DescriptionText>Description</DescriptionText>;
+    return (
+        <RightPage>
+            <Header>Description</Header>
+            <Contents>Description</Contents>
+        </RightPage>
+    );
 };
 
 export default Description;

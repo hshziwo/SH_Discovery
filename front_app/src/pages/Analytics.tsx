@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-
-const AnalyticsText = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    height: 70vh;
-`;
+import RightPage from './RightPage';
+import Header from './Header';
+import Contents from './Contents';
 
 const Analytics = () => {
-    return <AnalyticsText>Analytics</AnalyticsText>;
+    return (
+        <RightPage>
+            <Header>Analytics</Header>
+            <Contents>Analytics</Contents>
+        </RightPage>
+    );
 };
 
 export default Analytics;
