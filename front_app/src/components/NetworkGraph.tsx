@@ -33,21 +33,28 @@ const NetworkGraph = (props: any) => {
     const edges = data.edges;
 
     useEffect(() => {
-        const width = 1000;
-        const height = 600;
+        const style = svgRef.current?.parentElement?.getBoundingClientRect();
+        let width = style?.width;
+        let height = style?.height;
+        if (!width) width = 500;
+        if (!height) height = 350;
         const svg = d3
             .select(svgRef.current)
             .attr('width', width) // SVG의 너비 설정
             .attr('height', height); // SVG의 높이 설정
 
-        const link = svg
+        svg.selectAll('*').remove();
+
+        const output = svg.append('g');
+
+        const link = output
             .selectAll('line')
             .data(edges)
             .join('line')
             .attr('stroke', 'black')
             .attr('stroke-width', 1);
 
-        const node = svg
+        const node = output
             .selectAll('g')
             .data(nodes)
             .join('g')
@@ -79,7 +86,59 @@ const NetworkGraph = (props: any) => {
 
                 node.attr('transform', (d: any) => `translate(${d.x}, ${d.y})`);
             });
-    }, [data]);
+
+        function setMapPosition(svgElement: any, groupElement: any) {
+            // 전체 view, 중앙 정렬
+            // graphhalfWidth, graphhalfHeight : svg 안에 그래프가 존재하는 위치의 x, y 좌표만큼 이동된 위치 + 실제 그래프의 크기의 절반
+            // graphSize.width, graphSize.height : svg 안의 실제 그래프의 width, height
+            const graphSize = groupElement.node().getBBox();
+            const graphhalfWidth = graphSize.x + graphSize.width / 2;
+            const graphhalfHeight = graphSize.y + graphSize.height / 2;
+            const svgWidth = parseInt(svgElement.attr('width'), 10);
+            const svgHeight = parseInt(svgElement.attr('height'), 10);
+            let initialScale = 1;
+            let baseWidth = 0;
+            let baseHeight = 0;
+
+            if (graphSize.width > svgWidth) {
+                initialScale = 1 / (graphSize.width / svgWidth);
+            }
+            if (graphSize.height > svgHeight) {
+                const scale = 1 / (graphSize.height / svgHeight);
+                if (initialScale > scale) {
+                    initialScale = scale;
+                }
+            }
+
+            // 화면 svg 크기의 절반에 graphhalf를 scale만큼 줄인 크기를 뺀 만큼을 좌표 이동 시켜준다.
+            // graph 가로, 세로가 svg보다 크면 -로 당겨지고, svg보다 작으면 +로 이동된다.
+            // 이때 initialScale에 의해 한쪽(가로 또는 세로)이 고정된 상태이다.
+            baseWidth = svgWidth / 2 - graphhalfWidth * initialScale;
+            baseHeight = svgHeight / 2 - graphhalfHeight * initialScale;
+
+            // groupElement.exec({
+            //     style: {
+            //         transform: `translate(${baseWidth}px, ${baseHeight}px) scale(${initialScale})`
+            //     }
+            // });
+
+            groupElement.attr(
+                'transform',
+                `translate(${baseWidth}, ${baseHeight})`
+            );
+            groupElement.style('scale', initialScale * 4);
+
+            // console.log(baseWidth, baseHeight, initialScale);
+
+            // trigger tha initial zoom with an initial transform.
+            // d3 줌의 위치를 일치 시킴
+            // svgElement.history.call(d3.zoom().transform, d3.zoomIdentity.translate(baseWidth, baseHeight).scale(initialScale));
+        }
+
+        setTimeout(() => {
+            setMapPosition(svg, output);
+        }, 1000);
+    }, [nodes, edges]);
 
     return <svg ref={svgRef} />;
 };
