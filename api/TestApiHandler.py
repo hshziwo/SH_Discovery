@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from flask import request
 import requests
 import config
 import json
@@ -12,6 +13,9 @@ class TestApiHandler(Resource):
   #     }
 
   def get(self):
+    word = request.args.get('word')
+    print(word)
+  
     with open('testdata.json') as f:
       json_object = json.load(f)
 

@@ -17,15 +17,34 @@ const Inner = styled.li`
     box-sizing: border-box;
     padding: 1rem;
 `;
+// const AnalyticsMenuLink = styled(Link)`
+//     display: block;
+//     padding: 1rem;
+//     font-weight: bold;
+//     color: #fff;
+//     text-align: center;
+//     border-radius: 10px;
+//     background-color: dodgerblue;
+//     text-decoration: none;
+
+//     &:hover {
+//         color: rgb(79 70 229);
+//         background-color: rgb(240 240 241);
+//         border: 1px solid;
+//     }
+// `;
+
 const AnalyticsMenuLink = styled(Link)`
     display: block;
     padding: 1rem;
     font-weight: bold;
-    color: #fff;
     text-align: center;
     border-radius: 10px;
-    background-color: dodgerblue;
     text-decoration: none;
+
+    color: #333;
+    border: 1px solid #333;
+    background-color: #efefef;
 
     &:hover {
         color: rgb(79 70 229);

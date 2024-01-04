@@ -46,7 +46,7 @@ def extract_bigrams(text):
     return bgram_list
 
 def get_edges(tokens) :
-    edges = {}
+    edges_dics = {}
     for token in tokens :
         bgrams = extract_bigrams(token)
 
@@ -54,23 +54,37 @@ def get_edges(tokens) :
             if bgram[0] == bgram[1] :
                 continue
 
-            if f"{bgram[0]}_{bgram[1]}" in edges :
-                edges[f"{bgram[0]}_{bgram[1]}"] += 1
-            elif f"{bgram[1]}_{bgram[0]}" in edges :
-                edges[f"{bgram[1]}_{bgram[0]}"] += 1
+            if f"{bgram[0]}_{bgram[1]}" in edges_dics :
+                edges_dics[f"{bgram[0]}_{bgram[1]}"] += 1
+            elif f"{bgram[1]}_{bgram[0]}" in edges_dics :
+                edges_dics[f"{bgram[1]}_{bgram[0]}"] += 1
             else :
-                edges[f"{bgram[0]}_{bgram[1]}"] = 1
+                edges_dics[f"{bgram[0]}_{bgram[1]}"] = 1
+
+    edges = []
+    for key, value in edges_dics.items() :
+        fromto = str(key).split("_")
+        source = fromto[0]
+        target = fromto[1]
+        edges.append({"source":source, "target":target, "count":value})
 
     return edges
 
 def get_nodes(tokens):
-    nodes = {}
+    nodes_dics = {}
     for token in tokens :
         for word in token :
-            if word in nodes :
-                nodes[word] += 1
+            if word in nodes_dics :
+                nodes_dics[word] += 1
             else :
-                nodes[word] = 1
+                nodes_dics[word] = 1
+
+    nodes = []
+    for key, value in nodes_dics.items() :
+        nodes.append({
+            "id" : key,
+            "count" : value
+        })
 
     return nodes
 
