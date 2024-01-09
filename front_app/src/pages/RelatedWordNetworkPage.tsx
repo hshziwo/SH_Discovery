@@ -1,65 +1,13 @@
-import styled from 'styled-components';
 import { useRef, useState } from 'react';
+import AnalyticsContent from '../components/AnalyticsContent';
+import Visualazation from '../components/Visualazation';
+import Shoutcut from '../components/Shortcut';
+import Loading from '../components/Loading';
+import SvgArea from '../components/SvgArea';
 import SearchArea from '../components/SearchArea';
 import NetworkGraph from '../components/NetworkGraph';
 
-const Wrapper = styled.div<{ isLoading: boolean }>`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    ${({ isLoading }) =>
-        isLoading &&
-        `
-        opacity: 0.3;
-        pointer-events : none;
-        `}
-`;
-
-const Visualazation = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    padding: 1rem;
-    border: 1px solid rgb(229 231 235);
-`;
-
-const Loading = styled.div<{ isLoading: boolean }>`
-    display: none;
-
-    ${({ isLoading }) =>
-        isLoading &&
-        `
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 2rem;
-    `}
-`;
-
-const SvgArea = styled.div<{ isLoading: boolean }>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-
-    ${({ isLoading }) =>
-        isLoading &&
-        `
-        display: none;
-    `}
-`;
-
-const Shoutcut = styled.div`
-    width: 30%;
-    padding: 1rem;
-    border: 1px solid rgb(229 231 235);
-    border-left: 0;
-`;
-
-const RelatedWordNetwork = () => {
+const RelatedWordNetworkPage = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const wordRef = useRef<HTMLInputElement>(null);
@@ -88,11 +36,11 @@ const RelatedWordNetwork = () => {
     };
 
     return (
-        <Wrapper isLoading={isLoading}>
+        <AnalyticsContent isLoading={isLoading}>
             <Visualazation>
                 <Loading isLoading={isLoading}>Loading...</Loading>
                 <SvgArea isLoading={isLoading}>
-                    {data.length == 0 ? (
+                    {data.length === 0 ? (
                         'Please enter your search word.'
                     ) : (
                         <NetworkGraph data={data} />
@@ -100,10 +48,11 @@ const RelatedWordNetwork = () => {
                 </SvgArea>
             </Visualazation>
             <Shoutcut>
+                <span>Related Word Network</span>
                 <SearchArea word={wordRef} getData={getData}></SearchArea>
             </Shoutcut>
-        </Wrapper>
+        </AnalyticsContent>
     );
 };
 
-export default RelatedWordNetwork;
+export default RelatedWordNetworkPage;

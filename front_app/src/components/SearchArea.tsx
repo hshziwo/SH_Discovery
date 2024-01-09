@@ -3,7 +3,9 @@ import InputArea from './InputArea';
 import Button from './Button';
 import { IProps } from './InputArea';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    margin-top: 2rem;
+`;
 
 const SearchArea = (props: IProps) => {
     return (

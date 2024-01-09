@@ -93,7 +93,10 @@ const setMapPosition = (svgElement: any, groupElement: any) => {
 
     // trigger tha initial zoom with an initial transform.
     // d3 줌의 위치를 일치 시킴
-    // svgElement.call(d3.zoom().transform, d3.zoomIdentity.translate(baseWidth, baseHeight).scale(initialScale));
+    // svgElement.call(
+    //     d3.zoom().transform,
+    //     d3.zoomIdentity.translate(baseWidth, baseHeight).scale(initialScale)
+    // );
 };
 
 const NetworkGraph = (props: any) => {
@@ -115,8 +118,14 @@ const NetworkGraph = (props: any) => {
             .attr('height', height); // SVG의 높이 설정
 
         svg.selectAll('*').remove();
-
         const output = svg.append('g');
+
+        // let output: any;
+        // if (svg.select('g').empty()) {
+        //     output = svg.append('g');
+        // } else {
+        //     output = svg.select('g');
+        // }
 
         const link = output
             .selectAll('line')
@@ -125,11 +134,14 @@ const NetworkGraph = (props: any) => {
             .attr('stroke', 'black')
             .attr('stroke-width', 1);
 
+        // schemeCategory10 | schemeAccent | schemeDark2 | schemePaired | schemePastel1 | schemePastel2 | schemeSet1 | schemeSet2 | schemeSet3 | schemeTableau10
+        const color: any = d3.scaleOrdinal(d3.schemePastel1);
+
         const node = output
             .selectAll('g')
             .data(nodes)
             .join('g')
-            .each(function (d) {
+            .each(function (this: any) {
                 const text = d3
                     .select(this)
                     .append('text')
@@ -145,7 +157,8 @@ const NetworkGraph = (props: any) => {
                         .insert('rect', ':first-child')
                         // .attr('fill', 'skyblue')
                         // .attr('fill', 'deepskyblue')
-                        .attr('fill', 'lightskyblue')
+                        // .attr('fill', 'lightskyblue')
+                        .attr('fill', color)
                         .attr('rx', 8)
                         .attr('ry', 8)
                         // .attr('x', -bbox.width / 2)

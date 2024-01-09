@@ -88,6 +88,18 @@ def get_nodes(tokens):
 
     return nodes
 
+def get_node_data(texts):
+    tokens = []
+    for text in texts :
+        token = okt_tokenizer(text)
+        tokens.append(token) 
+    
+    nodes = get_nodes(tokens)
+
+    return {
+        'nodes' : nodes
+    }
+
 def get_graph_data(texts):
     tokens = []
     for text in texts :
