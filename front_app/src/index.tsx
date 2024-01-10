@@ -8,8 +8,11 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <React.StrictMode>
+    // 렌더링 두번 호출로 인해 주석처리
+    // <React.StrictMode>
+    <>
         <GlobalStyle />
         <App />
-    </React.StrictMode>
+    </>
+    // </React.StrictMode>
 );
