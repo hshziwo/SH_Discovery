@@ -119,22 +119,29 @@ const NetworkGraph = (props: any) => {
         const svg = d3
             .select(svgRef.current)
             .attr('width', width) // SVG의 너비 설정
-            .attr('height', height); // SVG의 높이 설정
+            .attr('height', height) // SVG의 높이 설정
+            .style('pointer-events', 'none')
+            .style('opacity', 0.2);
 
-        svg.selectAll('*').remove();
-        const output = svg.append('g');
+        // join 사용 불가의 경우 지우기 위한 코드
+        // svg.selectAll('*').remove();
+        // const output = svg.append('g');
 
-        // let output: any;
-        // if (svg.select('g').empty()) {
-        //     output = svg.append('g');
-        // } else {
-        //     output = svg.select('g');
-        // }
+        let output: any;
+        if (svg.select('g').empty()) {
+            output = svg.append('g');
+        } else {
+            output = svg.select('g');
+        }
 
-        const link = output
-            .selectAll('line')
-            .data(edges)
-            .join('line')
+        // Node를 무조건 뒤에 그려주기 위해 first-child 사용
+        // 안그러면 노드 앞에 선이 오는 경우 발생
+        const linkSelectAll = output.selectAll('line').data(edges);
+        linkSelectAll.exit().remove(); // 데이터 수보다 작으면 element 지움
+        const link = linkSelectAll
+            .enter()
+            .insert('line', ':first-child')
+            .merge(linkSelectAll) // 여기까지가 enter함수고 merge에서 enter와 update를 합침
             .attr('stroke', 'black')
             .attr('stroke-width', 1);
 
@@ -146,19 +153,34 @@ const NetworkGraph = (props: any) => {
             .data(nodes)
             .join('g')
             .each(function (this: any) {
-                const text = d3
-                    .select(this)
-                    .append('text')
-                    .text((d: any) => d.id);
+                // 여기서는 data가 없기 때문에 join을 쓸 수 없다
+                // 따라서 존재하는 지를 따져야 함.
+                // data, join은 한 세트
+                const gNode = d3.select(this);
+                const textSelect = gNode.select('text');
+
+                let text: any;
+                if (textSelect.empty()) {
+                    text = gNode.append('text');
+                } else {
+                    text = textSelect;
+                }
+                text.text((d: any) => d.id);
                 // .attr('x', -5)
                 // .attr('y', 5);
 
-                const bbox = text.node()?.getBBox();
                 // const fontSize = parseInt(text.style("font-size"));
-
+                const bbox = text.node()?.getBBox();
                 if (bbox) {
-                    d3.select(this)
-                        .insert('rect', ':first-child')
+                    const rectSelect = gNode.select('rect');
+                    let rect: any;
+                    if (rectSelect.empty()) {
+                        rect = gNode.insert('rect', ':first-child');
+                    } else {
+                        rect = rectSelect;
+                    }
+
+                    rect
                         // .attr('fill', 'skyblue')
                         // .attr('fill', 'deepskyblue')
                         // .attr('fill', 'lightskyblue')
@@ -192,6 +214,7 @@ const NetworkGraph = (props: any) => {
             .on('end', () => {
                 setZoom(svg, output);
                 setMapPosition(svg, output);
+                svg.style('opacity', 1).style('pointer-events', 'auto');
             });
     }, [nodes, edges]);
 

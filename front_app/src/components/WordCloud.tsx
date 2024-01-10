@@ -19,15 +19,16 @@ const WordCloud = (props: any) => {
                 .attr('width', layout.size()[0]) // SVG의 너비 설정
                 .attr('height', layout.size()[1]); // SVG의 높이 설정
 
-            svg.selectAll('*').remove();
-            const output = svg.append('g');
+            // join 사용 불가의 경우 지우기 위한 코드
+            // svg.selectAll('*').remove();
+            // const output = svg.append('g');
 
-            // let output: any;
-            // if (svg.select('g').empty()) {
-            //     output = svg.append('g');
-            // } else {
-            //     output = svg.select('g');
-            // }
+            let output: any;
+            if (svg.select('g').empty()) {
+                output = svg.append('g');
+            } else {
+                output = svg.select('g');
+            }
 
             // schemeCategory10 | schemeAccent | schemeDark2 | schemePaired | schemePastel1 | schemePastel2 | schemeSet1 | schemeSet2 | schemeSet3 | schemeTableau10
             const color: any = d3.scaleOrdinal(d3.schemeDark2);
@@ -43,8 +44,7 @@ const WordCloud = (props: any) => {
                 )
                 .selectAll('text')
                 .data(words)
-                .enter()
-                .append('text')
+                .join('text')
                 .style('font-size', (d: any) => {
                     return d.size + 'px';
                 })
