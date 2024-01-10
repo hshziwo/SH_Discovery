@@ -18,7 +18,7 @@ const RelatedWordNetworkPage = () => {
             if (word) {
                 setIsLoading(true);
                 fetch(
-                    `${process.env.REACT_APP_API_ROOT}/analytics/network?word=${word}`
+                    `${process.env.REACT_APP_API_ROOT}/api/analysis/network?word=${word}`
                 )
                     .then((res) => {
                         return res.json();

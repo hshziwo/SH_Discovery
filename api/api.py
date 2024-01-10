@@ -5,6 +5,6 @@ from api.WordCloudApiHandler import WordCloudApiHandler
 
 def addApi(app) :
     api = Api(app)
-    api.add_resource(RelatedWordNetworkApiHandler, '/analytics/network')
-    api.add_resource(WordCloudApiHandler, '/analytics/wordcloud')
+    api.add_resource(RelatedWordNetworkApiHandler, '/api/analysis/network')
+    api.add_resource(WordCloudApiHandler, '/api/analysis/wordcloud')
     api.add_resource(TestApiHandler, '/flask/test')

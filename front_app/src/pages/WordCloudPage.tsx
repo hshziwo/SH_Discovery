@@ -18,7 +18,7 @@ const WordCloudPage = () => {
             if (word) {
                 setIsLoading(true);
                 fetch(
-                    `${process.env.REACT_APP_API_ROOT}/analytics/wordcloud?word=${word}`
+                    `${process.env.REACT_APP_API_ROOT}/api/analysis/wordcloud?word=${word}`
                 )
                     .then((res) => {
                         return res.json();
