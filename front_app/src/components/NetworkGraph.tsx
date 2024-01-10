@@ -97,6 +97,10 @@ const setMapPosition = (svgElement: any, groupElement: any) => {
     //     d3.zoom().transform,
     //     d3.zoomIdentity.translate(baseWidth, baseHeight).scale(initialScale)
     // );
+    svgElement.call(
+        d3.zoom().transform,
+        d3.zoomIdentity.translate(svgWidth / 2, svgHeight / 2)
+    );
 };
 
 const NetworkGraph = (props: any) => {
