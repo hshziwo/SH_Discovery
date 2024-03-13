@@ -1,6 +1,6 @@
 # SH Discovery
 
-#### 사용기술: React, TypeScript, Flask, 네이버 뉴스 검색 API
+#### 사용기술: D3, React, TypeScript, Flask, 네이버 뉴스 검색 API
 
 #### 프로젝트 내용:
 • 웹 기반 기술로 데이터 분석 및 시각화 프로그램을 만드는 개인 프로젝트
