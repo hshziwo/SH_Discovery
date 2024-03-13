@@ -9,8 +9,8 @@
 
 • 검색어에 해당하는 뉴스를 찾아 동시출현단어 분석을 사용하여 네트워크 시각화 및 워드클라우드 시각화
 
-• KoNLPy라이브러리 중 Okt(Open-source Korean Text Processor)를 사용하여 명사(Noun)를 추출하고 NLTK라이브러리의 bigrams를 사용하여 빈도별 연관어쌍을 만들어 해당 검색어와 연관 빈도가 높은 단어를 D3를 이용하여 웹페이지에 시각화하는 방식을 사용.
+• KoNLPy라이브러리 중 Okt(Open-source Korean Text Processor)를 이용하여 형태소분석 및 명사(Noun)를 추출하고 NLTK라이브러리의 bigrams를 사용하여 빈도별 연관어쌍을 만들어 해당 검색어와 연관 빈도가 높은 단어를 D3를 이용하여 웹페이지에 시각화하는 방식을 사용.
 
 #### 배포 사이트: https://sh-discovery-hshziwo.koyeb.app
 
-자세한 사항은 커밋된 개발문서를 확인해주세요!
+#### 자세한 사항은 커밋된 개발문서를 확인해주세요!
