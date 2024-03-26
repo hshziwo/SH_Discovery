@@ -4,10 +4,11 @@ import os
 from nltk import bigrams
 
 stopwords = list()
-f = open("stopwords.txt", 'r', encoding='utf-8')
+f = open("stopwords.txt", "r", encoding="utf-8")
 while True:
     line = f.readline()
-    if not line: break
+    if not line:
+        break
     stopwords.append(line.strip())
 
 okt = Okt()
@@ -25,91 +26,96 @@ okt = Okt()
 #         line = f.readline()
 #         if not line: break
 #         stopwords.append(line.strip())
-        
+
 #     return stopwords
+
 
 def okt_tokenizer(text):
     # okt = Okt()
-    
-    text = re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z0-9]', '', text) # 특수기호 제거
+
+    text = re.sub(r"[^ ㄱ-ㅣ가-힣A-Za-z0-9]", "", text)  # 특수기호 제거
     # stopwords = get_stopwords() # 불용어
 
     # okt.morphs, okt.nouns, okt.phrases
-    return [token for token in okt.nouns(text)
-            if len(token) > 1 and token not in stopwords]
+    return [
+        token for token in okt.nouns(text) if len(token) > 1 and token not in stopwords
+    ]
+
 
 def extract_bigrams(text):
-    
+
     bgram = bigrams(text)
     bgram_list = [x for x in bgram]
 
     return bgram_list
 
-def get_edges(tokens) :
+
+def get_edges(tokens):
     edges_dics = {}
-    for token in tokens :
+    for token in tokens:
         bgrams = extract_bigrams(token)
 
         for bgram in bgrams:
-            if bgram[0] == bgram[1] :
+            if bgram[0] == bgram[1]:
                 continue
 
-            if f"{bgram[0]}_{bgram[1]}" in edges_dics :
+            if f"{bgram[0]}_{bgram[1]}" in edges_dics:
                 edges_dics[f"{bgram[0]}_{bgram[1]}"] += 1
-            elif f"{bgram[1]}_{bgram[0]}" in edges_dics :
+            elif f"{bgram[1]}_{bgram[0]}" in edges_dics:
                 edges_dics[f"{bgram[1]}_{bgram[0]}"] += 1
-            else :
+            else:
                 edges_dics[f"{bgram[0]}_{bgram[1]}"] = 1
 
     edges = []
-    for key, value in edges_dics.items() :
+    for key, value in edges_dics.items():
         fromto = str(key).split("_")
         source = fromto[0]
         target = fromto[1]
-        edges.append({"source":source, "target":target, "count":value})
+        edges.append({"source": source, "target": target, "count": value})
 
     return edges
 
+
 def get_nodes(tokens):
     nodes_dics = {}
-    for token in tokens :
-        for word in token :
-            if word in nodes_dics :
+    for token in tokens:
+        for word in token:
+            if word in nodes_dics:
                 nodes_dics[word] += 1
-            else :
+            else:
                 nodes_dics[word] = 1
 
     nodes = []
-    for key, value in nodes_dics.items() :
-        nodes.append({
-            "id" : key,
-            "count" : value
-        })
+    for key, value in nodes_dics.items():
+        nodes.append({"id": key, "count": value})
 
     return nodes
 
+
 def get_node_data(texts):
     tokens = []
-    for text in texts :
+    for text in texts:
         token = okt_tokenizer(text)
-        tokens.append(token) 
-    
+        tokens.append(token)
+
     nodes = get_nodes(tokens)
 
-    return {
-        'nodes' : nodes
-    }
+    return {"nodes": nodes}
+
 
 def get_graph_data(texts):
     tokens = []
-    for text in texts :
+    count = 1
+    for text in texts:
         token = okt_tokenizer(text)
-        tokens.append(token) 
-    
+        tokens.append(token)
+        count += 1
+        if count > 2:
+            break
+
+    # 지금은 뉴스 갯수를 조절해서 양을 조절하지만
+    # 나중에는 모든 데이터를  다 주고 있는 데 여기서 노드수랑 엣지수 줄이는 추가작업이 필요
     nodes = get_nodes(tokens)
     edges = get_edges(tokens)
 
-    return {
-        'nodes' : nodes,
-        'edges' : edges
-    }
+    return {"nodes": nodes, "edges": edges}
